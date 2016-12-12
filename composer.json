@@ -1,0 +1,25 @@
+{
+    "name": "dap7z/authentification",
+    "require": {
+        "php": ">=5.5",
+		"phpmailer/phpmailer": "5.2.*",
+		"league/oauth2-google": "1.0.*",
+		"psr/log": "1.0.*",
+		"components/jquery": "3.1.*",
+		"components/bootstrap-default": "3.3.*",
+		"robloach/component-installer": "*"
+    },
+	"comment": "components/vue(js) non disponible packagist.org, installe manuellement dans web/assets/vue",
+	"config": {
+		"bin-dir": "bin",
+		"component-dir": "web/assets",
+		"component-baseurl": "/assets"
+	},
+	"minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Damien Pointier",
+            "email": "damien.pointier@gmail.com"
+        }
+    ]
+}
