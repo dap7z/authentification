@@ -18,6 +18,16 @@ class Auth
 		return isset($_SESSION['user']);
 	}
 	
+	public function checkadmin()
+	{
+		$isAdmin = 0;
+		if($this->check()){
+			$user = User::where('id',$_SESSION['user'])->first();
+			$isAdmin = $user->is_admin;
+		}
+		return $isAdmin;
+	}
+	
 	public function attempt($email,$password)
 	{
 		$user = User::where('email',$email)->first();

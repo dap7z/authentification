@@ -3,6 +3,12 @@ use Respect\Validation\Validator as v;
 
 $container = $app->getContainer();
 
+//debug bar
+$provider = new Kitchenu\Debugbar\ServiceProvider();
+$provider->register($app);
+$container->debugbar->addMessage("verification méthode addMessage de debug bar");
+
+
 /*
 	//initialise la traduction des messages avec gettext() / _()
 	// => DESACTIVE CAR EXTENTION PHP GETTEXT NE FONCTIONNE PAS BIEN AVEC WAMP SERVER x64
@@ -26,9 +32,11 @@ $capsule->addConnection($container['settings']['db']);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
+
 $container['db'] = function ($container) use ($capsule) {
 	return $capsule;
 };
+
 
 $container['auth'] = function($container) {
 	return new \App\Auth\Auth;
@@ -43,13 +51,26 @@ $container['view'] = function ($container) {
 		'cache' => false,
 	]);
 
+	
+	/*
+	//$debug = new \Twig_Extension_Debug();
+	//debug pour :  {{ dump(mavar) }}
+	$view->addExtension(new \Slim\Views\TwigExtension(
+		...,
+		$debug
+	));
+	*/
+	
+	
 	$view->addExtension(new \Slim\Views\TwigExtension(
 		$container->router,
 		$container->request->getUri()
 	));
-
+	
+	//on definie les varibles qui seront passes sur toutes les vues
 	$view->getEnvironment()->addGlobal('auth',[
 		'check' => $container->auth->check(),
+		'checkadmin' => $container->auth->checkadmin(),
 		'user' => $container->auth->user()
 	]);
 

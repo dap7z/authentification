@@ -1,7 +1,14 @@
 {% extends 'templates/app.twig' %}
 
 {% block content %}
+	<input type="hidden" name="js_view" value="home" />
 	<div class="content">
-	    <div class="title">Bienvenue</div>
+	    <div class="title">
+		{% if auth.check %}
+			Bienvenue {{ auth.user.surname }} {{ auth.user.name }}
+		{% else %}
+			Bienvenue
+		{% endif %}
+		</div>
 	</div>
 {% endblock %}

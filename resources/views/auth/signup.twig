@@ -35,7 +35,7 @@
 
 						<div class="form-group{{ errors.telnumber ? ' has-error' : '' }}">
     						<label for="telnumber">Numéro de téléphone</label>
-    						<input type="text" name="name" id="telnumber" class="form-control" value="{{ old.telnumber }}" >
+    						<input type="tel" name="name" id="telnumber" class="form-control" data-mask="telfr" value="{{ old.telnumber }}">
                             {% if errors.telnumber %}
                             <span class="hel-block">{{ errors.telnumber | first }}</span>
                             {% endif %}

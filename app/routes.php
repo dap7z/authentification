@@ -24,3 +24,10 @@ $app->group('',function () {
 
 
 
+////////////
+// ROUTES A FAIRE :auth.infos.change
+
+$app->get('/users/list','UsersController:index')->setName('users.list');
+
+$app->get('/auth/infos/change','AuthController:setInfos')->setName('auth.infos.change');
+

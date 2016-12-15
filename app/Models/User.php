@@ -12,10 +12,13 @@ class User extends Model
 	
 	protected $table = 'users';
 
+	//on defini les champs modifibles par l'utilisateur :
 	protected $fillable = [
 		'email',
-		'name',
 		'password',
+		'telnumber',
+		'name',
+		'surname',
 	];
 
 	public function setPassword($password)

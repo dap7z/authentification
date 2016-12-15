@@ -28,7 +28,7 @@ class AuthController extends Controller
 		);
 
 		if (!$auth) {
-			$this->flash->addMessage('error','Connexion impossible, verifier vos identifiants');
+			$this->flash->addMessage('error','Connexion impossible, verifiez vos identifiants');
 			return $response->withRedirect($this->router->pathFor('auth.signin'));
 		}
 
@@ -45,7 +45,6 @@ class AuthController extends Controller
 
 		$validation = $this->validator->validate($request,[
 			'email' => v::noWhitespace()->notEmpty()->email()->emailAvailable(),
-			//'name' => v::noWhitespace()->notEmpty()->alpha(),
 			'password' => v::noWhitespace()->notEmpty(),
 			'passwordconfirm' => v::noWhitespace()->notEmpty(),
 		]);
@@ -57,7 +56,6 @@ class AuthController extends Controller
 
 		$user = User::create([
 			'email' => $request->getParam('email'),
-			//'name' => $request->getParam('name'),
 			'password' => password_hash($request->getParam('password'),PASSWORD_DEFAULT),
 		]);
 		
@@ -99,7 +97,8 @@ class AuthController extends Controller
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 		$result = curl_exec($ch);
 		///////
-
+		
+		
 		$this->flash->addMessage('info','Vous êtes maintenant connecté');
 
 		$this->auth->attempt($user->email,$request->getParam('password'));

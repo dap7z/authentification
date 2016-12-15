@@ -15,7 +15,8 @@
         "illuminate/database": "^5.2",
         "respect/validation": "^1.0",
         "slim/csrf": "^0.6.0",
-        "slim/flash": "^0.1.0"
+        "slim/flash": "^0.1.0",
+		"kitchenu/slim-debugbar": "1.0"
     },
 	"minimum-stability": "stable",
     "autoload": {
