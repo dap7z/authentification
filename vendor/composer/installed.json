@@ -1,17 +1,17 @@
 [
     {
         "name": "symfony/polyfill-mbstring",
-        "version": "v1.0.1",
-        "version_normalized": "1.0.1.0",
+        "version": "v1.1.1",
+        "version_normalized": "1.1.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/polyfill-mbstring.git",
-            "reference": "49ff736bd5d41f45240cec77b44967d76e0c3d25"
+            "reference": "1289d16209491b584839022f29257ad859b8532d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/49ff736bd5d41f45240cec77b44967d76e0c3d25",
-            "reference": "49ff736bd5d41f45240cec77b44967d76e0c3d25",
+            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/1289d16209491b584839022f29257ad859b8532d",
+            "reference": "1289d16209491b584839022f29257ad859b8532d",
             "shasum": ""
         },
         "require": {
@@ -20,11 +20,11 @@
         "suggest": {
             "ext-mbstring": "For best performance"
         },
-        "time": "2015-11-20 09:19:13",
+        "time": "2016-01-20 09:13:37",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.0-dev"
+                "dev-master": "1.1-dev"
             }
         },
         "installation-source": "dist",
@@ -62,17 +62,17 @@
     },
     {
         "name": "symfony/translation",
-        "version": "v3.0.1",
-        "version_normalized": "3.0.1.0",
+        "version": "v3.0.4",
+        "version_normalized": "3.0.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/translation.git",
-            "reference": "dff0867826a7068d673801b7522f8e2634016ef9"
+            "reference": "f7a07af51ea067745a521dab1e3152044a2fb1f2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/translation/zipball/dff0867826a7068d673801b7522f8e2634016ef9",
-            "reference": "dff0867826a7068d673801b7522f8e2634016ef9",
+            "url": "https://api.github.com/repos/symfony/translation/zipball/f7a07af51ea067745a521dab1e3152044a2fb1f2",
+            "reference": "f7a07af51ea067745a521dab1e3152044a2fb1f2",
             "shasum": ""
         },
         "require": {
@@ -93,7 +93,7 @@
             "symfony/config": "",
             "symfony/yaml": ""
         },
-        "time": "2015-12-05 17:45:07",
+        "time": "2016-03-25 01:41:20",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -176,24 +176,74 @@
         ]
     },
     {
-        "name": "illuminate/contracts",
-        "version": "v5.2.0",
-        "version_normalized": "5.2.0.0",
+        "name": "paragonie/random_compat",
+        "version": "v1.4.1",
+        "version_normalized": "1.4.1.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/illuminate/contracts.git",
-            "reference": "51b3acf96a12f5a10d767d5f2a534fed6f304235"
+            "url": "https://github.com/paragonie/random_compat.git",
+            "reference": "c7e26a21ba357863de030f0b9e701c7d04593774"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/contracts/zipball/51b3acf96a12f5a10d767d5f2a534fed6f304235",
-            "reference": "51b3acf96a12f5a10d767d5f2a534fed6f304235",
+            "url": "https://api.github.com/repos/paragonie/random_compat/zipball/c7e26a21ba357863de030f0b9e701c7d04593774",
+            "reference": "c7e26a21ba357863de030f0b9e701c7d04593774",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "4.*|5.*"
+        },
+        "suggest": {
+            "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
+        },
+        "time": "2016-03-18 20:34:03",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "lib/random.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Paragon Initiative Enterprises",
+                "email": "security@paragonie.com",
+                "homepage": "https://paragonie.com"
+            }
+        ],
+        "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
+        "keywords": [
+            "csprng",
+            "pseudorandom",
+            "random"
+        ]
+    },
+    {
+        "name": "illuminate/contracts",
+        "version": "v5.2.28",
+        "version_normalized": "5.2.28.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/illuminate/contracts.git",
+            "reference": "411b851962c211078ade7664a6976e77a78cd2a5"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/illuminate/contracts/zipball/411b851962c211078ade7664a6976e77a78cd2a5",
+            "reference": "411b851962c211078ade7664a6976e77a78cd2a5",
             "shasum": ""
         },
         "require": {
             "php": ">=5.5.9"
         },
-        "time": "2015-12-19 14:25:38",
+        "time": "2016-03-07 20:37:17",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -290,34 +340,34 @@
     },
     {
         "name": "illuminate/support",
-        "version": "v5.2.0",
-        "version_normalized": "5.2.0.0",
+        "version": "v5.2.28",
+        "version_normalized": "5.2.28.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/support.git",
-            "reference": "0b25fb20b0c75392b0b3848fe067275c51235e37"
+            "reference": "e4aa03c5f26db752e838354a7d71b85e6138f4ec"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/support/zipball/0b25fb20b0c75392b0b3848fe067275c51235e37",
-            "reference": "0b25fb20b0c75392b0b3848fe067275c51235e37",
+            "url": "https://api.github.com/repos/illuminate/support/zipball/e4aa03c5f26db752e838354a7d71b85e6138f4ec",
+            "reference": "e4aa03c5f26db752e838354a7d71b85e6138f4ec",
             "shasum": ""
         },
         "require": {
             "doctrine/inflector": "~1.0",
             "ext-mbstring": "*",
             "illuminate/contracts": "5.2.*",
+            "paragonie/random_compat": "~1.4",
             "php": ">=5.5.9"
         },
         "suggest": {
             "illuminate/filesystem": "Required to use the composer class (5.2.*).",
             "jeremeamia/superclosure": "Required to be able to serialize closures (~2.2).",
-            "paragonie/random_compat": "Provides a compatible interface like PHP7's random_bytes() in PHP 5 projects (~1.1).",
             "symfony/polyfill-php56": "Required to use the hash_equals function on PHP 5.5 (~1.0).",
             "symfony/process": "Required to use the composer class (2.8.*|3.0.*).",
             "symfony/var-dumper": "Improves the dd function (2.8.*|3.0.*)."
         },
-        "time": "2015-12-07 16:09:55",
+        "time": "2016-03-30 18:18:45",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -348,24 +398,24 @@
     },
     {
         "name": "illuminate/container",
-        "version": "v5.2.0",
-        "version_normalized": "5.2.0.0",
+        "version": "v5.2.28",
+        "version_normalized": "5.2.28.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/container.git",
-            "reference": "64c728a58f35c71cbcafe3ef17eb8057965d3dbc"
+            "reference": "1e156f8017490f5583ab161030bf839c77c95e54"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/container/zipball/64c728a58f35c71cbcafe3ef17eb8057965d3dbc",
-            "reference": "64c728a58f35c71cbcafe3ef17eb8057965d3dbc",
+            "url": "https://api.github.com/repos/illuminate/container/zipball/1e156f8017490f5583ab161030bf839c77c95e54",
+            "reference": "1e156f8017490f5583ab161030bf839c77c95e54",
             "shasum": ""
         },
         "require": {
             "illuminate/contracts": "5.2.*",
             "php": ">=5.5.9"
         },
-        "time": "2015-12-17 20:45:15",
+        "time": "2016-03-16 17:19:17",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -393,17 +443,17 @@
     },
     {
         "name": "illuminate/database",
-        "version": "v5.2.0",
-        "version_normalized": "5.2.0.0",
+        "version": "v5.2.28",
+        "version_normalized": "5.2.28.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/database.git",
-            "reference": "af0e0d1cb4e4abf18eae6400c4ed5685a69a9e41"
+            "reference": "1ea9f36cef011a80b1623ea3566d57017e7913bc"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/database/zipball/af0e0d1cb4e4abf18eae6400c4ed5685a69a9e41",
-            "reference": "af0e0d1cb4e4abf18eae6400c4ed5685a69a9e41",
+            "url": "https://api.github.com/repos/illuminate/database/zipball/1ea9f36cef011a80b1623ea3566d57017e7913bc",
+            "reference": "1ea9f36cef011a80b1623ea3566d57017e7913bc",
             "shasum": ""
         },
         "require": {
@@ -421,7 +471,7 @@
             "illuminate/filesystem": "Required to use the migrations (5.2.*).",
             "illuminate/pagination": "Required to paginate the result set (5.2.*)."
         },
-        "time": "2015-12-20 16:11:11",
+        "time": "2016-04-01 18:17:22",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -454,297 +504,69 @@
         ]
     },
     {
-        "name": "illuminate/events",
-        "version": "v5.2.0",
-        "version_normalized": "5.2.0.0",
+        "name": "respect/validation",
+        "version": "1.0.5",
+        "version_normalized": "1.0.5.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/illuminate/events.git",
-            "reference": "189f1915846101ecb93a9b2fc2dadb1e8c7d1b42"
+            "url": "https://github.com/Respect/Validation.git",
+            "reference": "294368294f9cd207f81474bab27d99875a19ac55"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/events/zipball/189f1915846101ecb93a9b2fc2dadb1e8c7d1b42",
-            "reference": "189f1915846101ecb93a9b2fc2dadb1e8c7d1b42",
+            "url": "https://api.github.com/repos/Respect/Validation/zipball/294368294f9cd207f81474bab27d99875a19ac55",
+            "reference": "294368294f9cd207f81474bab27d99875a19ac55",
             "shasum": ""
         },
         "require": {
-            "illuminate/container": "5.2.*",
-            "illuminate/contracts": "5.2.*",
-            "illuminate/support": "5.2.*",
-            "php": ">=5.5.9"
-        },
-        "time": "2015-11-30 19:26:21",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "5.2-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Illuminate\\Events\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Taylor Otwell",
-                "email": "taylorotwell@gmail.com"
-            }
-        ],
-        "description": "The Illuminate Events package.",
-        "homepage": "http://laravel.com"
-    },
-    {
-        "name": "symfony/var-dumper",
-        "version": "v3.0.1",
-        "version_normalized": "3.0.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/var-dumper.git",
-            "reference": "87db8700deb12ba2b65e858f656a1f885530bcb0"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/var-dumper/zipball/87db8700deb12ba2b65e858f656a1f885530bcb0",
-            "reference": "87db8700deb12ba2b65e858f656a1f885530bcb0",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.5.9",
-            "symfony/polyfill-mbstring": "~1.0"
+            "php": ">=5.4"
         },
         "require-dev": {
-            "twig/twig": "~1.20|~2.0"
+            "egulias/email-validator": "~1.2",
+            "malkusch/bav": "~1.0",
+            "mikey179/vfsstream": "^1.5",
+            "phpunit/phpunit": "~4.0",
+            "symfony/validator": "~2.6.9",
+            "zendframework/zend-validator": "~2.3"
         },
         "suggest": {
-            "ext-symfony_debug": ""
+            "egulias/email-validator": "Strict (RFC compliant) email validation",
+            "ext-bcmath": "Arbitrary Precision Mathematics",
+            "ext-mbstring": "Multibyte String Functions",
+            "fabpot/php-cs-fixer": "Fix PSR2 and other coding style issues",
+            "malkusch/bav": "German bank account validation",
+            "symfony/validator": "Use Symfony validator through Respect\\Validation",
+            "zendframework/zend-validator": "Use Zend Framework validator through Respect\\Validation"
         },
-        "time": "2015-12-05 11:13:14",
+        "time": "2016-03-31 17:39:15",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "3.0-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "Resources/functions/dump.php"
-            ],
-            "psr-4": {
-                "Symfony\\Component\\VarDumper\\": ""
-            },
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Nicolas Grekas",
-                "email": "p@tchwork.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony mechanism for exploring and dumping PHP variables",
-        "homepage": "https://symfony.com",
-        "keywords": [
-            "debug",
-            "dump"
-        ]
-    },
-    {
-        "name": "psr/log",
-        "version": "1.0.0",
-        "version_normalized": "1.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/php-fig/log.git",
-            "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/php-fig/log/zipball/fe0936ee26643249e916849d48e3a51d5f5e278b",
-            "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b",
-            "shasum": ""
-        },
-        "time": "2012-12-21 11:40:51",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Psr\\Log\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "PHP-FIG",
-                "homepage": "http://www.php-fig.org/"
-            }
-        ],
-        "description": "Common interface for logging libraries",
-        "keywords": [
-            "log",
-            "psr",
-            "psr-3"
-        ]
-    },
-    {
-        "name": "maximebf/debugbar",
-        "version": "v1.11.0",
-        "version_normalized": "1.11.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/maximebf/php-debugbar.git",
-            "reference": "07741d84d39d10f00551c94284cdefcc69703e77"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/07741d84d39d10f00551c94284cdefcc69703e77",
-            "reference": "07741d84d39d10f00551c94284cdefcc69703e77",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0",
-            "psr/log": "^1.0",
-            "symfony/var-dumper": "^2.6|^3.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "^4.0|^5.0"
-        },
-        "suggest": {
-            "kriswallsmith/assetic": "The best way to manage assets",
-            "monolog/monolog": "Log using Monolog",
-            "predis/predis": "Redis storage"
-        },
-        "time": "2015-12-10 09:50:24",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.11-dev"
+                "dev-master": "1.0-dev"
             }
         },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "DebugBar\\": "src/DebugBar/"
+                "Respect\\Validation\\": "library/"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "MIT"
+            "BSD Style"
         ],
         "authors": [
             {
-                "name": "Maxime Bouroumeau-Fuseau",
-                "email": "maxime.bouroumeau@gmail.com",
-                "homepage": "http://maximebf.com"
-            },
-            {
-                "name": "Barry vd. Heuvel",
-                "email": "barryvdh@gmail.com"
+                "name": "Respect/Validation Contributors",
+                "homepage": "https://github.com/Respect/Validation/graphs/contributors"
             }
         ],
-        "description": "Debug bar in the browser for php application",
-        "homepage": "https://github.com/maximebf/php-debugbar",
+        "description": "The most awesome validation engine ever created for PHP",
+        "homepage": "http://respect.li",
         "keywords": [
-            "debug",
-            "debugbar"
-        ]
-    },
-    {
-        "name": "monolog/monolog",
-        "version": "1.17.2",
-        "version_normalized": "1.17.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Seldaek/monolog.git",
-            "reference": "bee7f0dc9c3e0b69a6039697533dca1e845c8c24"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/bee7f0dc9c3e0b69a6039697533dca1e845c8c24",
-            "reference": "bee7f0dc9c3e0b69a6039697533dca1e845c8c24",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0",
-            "psr/log": "~1.0"
-        },
-        "provide": {
-            "psr/log-implementation": "1.0.0"
-        },
-        "require-dev": {
-            "aws/aws-sdk-php": "^2.4.9",
-            "doctrine/couchdb": "~1.0@dev",
-            "graylog2/gelf-php": "~1.0",
-            "jakub-onderka/php-parallel-lint": "0.9",
-            "php-console/php-console": "^3.1.3",
-            "phpunit/phpunit": "~4.5",
-            "phpunit/phpunit-mock-objects": "2.3.0",
-            "raven/raven": "^0.13",
-            "ruflin/elastica": ">=0.90 <3.0",
-            "swiftmailer/swiftmailer": "~5.3",
-            "videlalvaro/php-amqplib": "~2.4"
-        },
-        "suggest": {
-            "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
-            "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
-            "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
-            "ext-mongo": "Allow sending log messages to a MongoDB server",
-            "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
-            "php-console/php-console": "Allow sending log messages to Google Chrome",
-            "raven/raven": "Allow sending log messages to a Sentry server",
-            "rollbar/rollbar": "Allow sending log messages to Rollbar",
-            "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
-            "videlalvaro/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib"
-        },
-        "time": "2015-10-14 12:51:02",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.16.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Monolog\\": "src/Monolog"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Jordi Boggiano",
-                "email": "j.boggiano@seld.be",
-                "homepage": "http://seld.be"
-            }
-        ],
-        "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
-        "homepage": "http://github.com/Seldaek/monolog",
-        "keywords": [
-            "log",
-            "logging",
-            "psr-3"
+            "respect",
+            "validation",
+            "validator"
         ]
     },
     {
@@ -800,28 +622,29 @@
     },
     {
         "name": "slim/csrf",
-        "version": "0.5.0",
-        "version_normalized": "0.5.0.0",
+        "version": "0.6.0",
+        "version_normalized": "0.6.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/slimphp/Slim-Csrf.git",
-            "reference": "fd713fe28c73c70edcdda95afcf5ad30b21d2d9b"
+            "reference": "f56bccc1c3a9c76e5fcf7c6d56698a32f9e7e9d8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/slimphp/Slim-Csrf/zipball/fd713fe28c73c70edcdda95afcf5ad30b21d2d9b",
-            "reference": "fd713fe28c73c70edcdda95afcf5ad30b21d2d9b",
+            "url": "https://api.github.com/repos/slimphp/Slim-Csrf/zipball/f56bccc1c3a9c76e5fcf7c6d56698a32f9e7e9d8",
+            "reference": "f56bccc1c3a9c76e5fcf7c6d56698a32f9e7e9d8",
             "shasum": ""
         },
         "require": {
+            "paragonie/random_compat": "^1.1",
             "php": ">=5.5.0",
             "psr/http-message": "^1.0"
         },
         "require-dev": {
             "phpunit/phpunit": "^4.0",
-            "slim/slim": "3.x-dev"
+            "slim/slim": "~3.0"
         },
-        "time": "2015-11-09 10:34:12",
+        "time": "2015-12-22 10:13:02",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -1020,17 +843,17 @@
     },
     {
         "name": "slim/slim",
-        "version": "3.0.0",
-        "version_normalized": "3.0.0.0",
+        "version": "3.3.0",
+        "version_normalized": "3.3.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/slimphp/Slim.git",
-            "reference": "3b06f0f2d84dabbe81b6cea46ace46a3e883253e"
+            "reference": "939f2e85d57508de9cff241d10091cd972f221c3"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/slimphp/Slim/zipball/3b06f0f2d84dabbe81b6cea46ace46a3e883253e",
-            "reference": "3b06f0f2d84dabbe81b6cea46ace46a3e883253e",
+            "url": "https://api.github.com/repos/slimphp/Slim/zipball/939f2e85d57508de9cff241d10091cd972f221c3",
+            "reference": "939f2e85d57508de9cff241d10091cd972f221c3",
             "shasum": ""
         },
         "require": {
@@ -1041,9 +864,10 @@
             "psr/http-message": "^1.0"
         },
         "require-dev": {
-            "phpunit/phpunit": "^4.0"
+            "phpunit/phpunit": "^4.0",
+            "squizlabs/php_codesniffer": "^2.5"
         },
-        "time": "2015-12-07 14:11:09",
+        "time": "2016-03-10 21:37:40",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -1088,17 +912,17 @@
     },
     {
         "name": "twig/twig",
-        "version": "v1.23.1",
-        "version_normalized": "1.23.1.0",
+        "version": "v1.24.0",
+        "version_normalized": "1.24.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/twigphp/Twig.git",
-            "reference": "d9b6333ae8dd2c8e3fd256e127548def0bc614c6"
+            "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/twigphp/Twig/zipball/d9b6333ae8dd2c8e3fd256e127548def0bc614c6",
-            "reference": "d9b6333ae8dd2c8e3fd256e127548def0bc614c6",
+            "url": "https://api.github.com/repos/twigphp/Twig/zipball/3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
+            "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
             "shasum": ""
         },
         "require": {
@@ -1108,11 +932,11 @@
             "symfony/debug": "~2.7",
             "symfony/phpunit-bridge": "~2.7"
         },
-        "time": "2015-11-05 12:49:06",
+        "time": "2016-01-25 21:22:18",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.23-dev"
+                "dev-master": "1.24-dev"
             }
         },
         "installation-source": "dist",
@@ -1151,17 +975,17 @@
     },
     {
         "name": "slim/twig-view",
-        "version": "2.0",
-        "version_normalized": "2.0.0.0",
+        "version": "2.1.1",
+        "version_normalized": "2.1.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/slimphp/Twig-View.git",
-            "reference": "fe98eab8daee498cc2821f1ad2ff7123bc327844"
+            "reference": "16fded26a44b8e8e0e041f1cff32afa21daeb284"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/slimphp/Twig-View/zipball/fe98eab8daee498cc2821f1ad2ff7123bc327844",
-            "reference": "fe98eab8daee498cc2821f1ad2ff7123bc327844",
+            "url": "https://api.github.com/repos/slimphp/Twig-View/zipball/16fded26a44b8e8e0e041f1cff32afa21daeb284",
+            "reference": "16fded26a44b8e8e0e041f1cff32afa21daeb284",
             "shasum": ""
         },
         "require": {
@@ -1172,7 +996,7 @@
         "require-dev": {
             "phpunit/phpunit": "^4.8.0"
         },
-        "time": "2015-08-17 08:45:48",
+        "time": "2016-03-13 20:58:41",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -1191,7 +1015,7 @@
                 "homepage": "http://joshlockhart.com"
             }
         ],
-        "description": "Slim Framework view helper built on top of the Twig templating component",
+        "description": "Slim Framework 3 view helper built on top of the Twig templating component",
         "homepage": "http://slimframework.com",
         "keywords": [
             "framework",
@@ -1199,61 +1023,6 @@
             "template",
             "twig",
             "view"
-        ]
-    },
-    {
-        "name": "swiftmailer/swiftmailer",
-        "version": "v5.4.1",
-        "version_normalized": "5.4.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/swiftmailer/swiftmailer.git",
-            "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/0697e6aa65c83edf97bb0f23d8763f94e3f11421",
-            "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "require-dev": {
-            "mockery/mockery": "~0.9.1,<0.9.4"
-        },
-        "time": "2015-06-06 14:19:39",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "5.4-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "lib/swift_required.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Chris Corbyn"
-            },
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            }
-        ],
-        "description": "Swiftmailer, free feature-rich PHP mailer",
-        "homepage": "http://swiftmailer.org",
-        "keywords": [
-            "email",
-            "mail",
-            "mailer"
         ]
     }
 ]
