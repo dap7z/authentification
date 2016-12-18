@@ -17,18 +17,31 @@ class AuthController extends Controller
 
 	public function getSignIn($request,$response)
 	{
-		return $this->view->render($response,'auth/signin.twig');
+		return $this->render($response,'auth/signin.twig');
 	}
 
-	public function postSignIn($request,$response)
+	public function postSignIn($request, $response)
 	{
+		$_SESSION['old'] = $request->getParams(); //on souhaite que les donnees de ce formulaire soient persistees
+		
 		$auth = $this->auth->attempt(
 			$request->getParam('email'),
 			$request->getParam('password')
 		);
 
-		if (!$auth) {
-			$this->flash->addMessage('error','Connexion impossible, verifiez vos identifiants');
+		if($auth) 
+		{
+			//l'utilisateur viens de se connecter, pas besoin que le champ mail soit rempli a nouveau
+			$_SESSION['old'] = array();
+			if($this->auth->checkadmin()){
+				//redirection vers la page de gestion des utilisateur
+				return $response->withRedirect($this->router->pathFor('users.getlist'));
+			}
+		}
+		else
+		{
+			//echec de la connexion, on re-affiche l'adresse mail utilisée dans le champs
+			$this->flash->addMessage('error','Connexion impossible, verifiez vos identifiants.');
 			return $response->withRedirect($this->router->pathFor('auth.signin'));
 		}
 
@@ -37,26 +50,39 @@ class AuthController extends Controller
 
 	public function getSignUp($request,$response)
 	{
-		return $this->view->render($response,'auth/signup.twig');
+		return $this->render($response,'auth/signup.twig');
 	}
 
 	public function postSignUp($request,$response)
 	{
-
-		$validation = $this->validator->validate($request,[
+		$_SESSION['old'] = $request->getParams(); //on souhaite que les donnees de ce formulaire soient persistees
+		
+		$validation = $this->Validator->validate($request,[
 			'email' => v::noWhitespace()->notEmpty()->email()->emailAvailable(),
 			'password' => v::noWhitespace()->notEmpty(),
-			'passwordconfirm' => v::noWhitespace()->notEmpty(),
+			'password_confirm' => v::noWhitespace()->notEmpty(),
+			//'password_confirm' => v::equals($_POST['password']), //renvoi mdp mal saisi en clair...
 		]);
-
+		$password_confirm_failed = ($_POST["password"] != $_POST["password_confirm"]);
+		if (!$validation->failed() && $password_confirm_failed) {
+			$this->flash->addMessage('error',"Les mots de passes n'étaient pas identiques, veuillez réessayer.");
+		}
 		
-		if ($validation->failed()) {
+		if ($validation->failed() || $password_confirm_failed) {
+			if(! $password_confirm_failed){
+				$this->flash->addMessage('error',"Vérifiez les informations saisies.");
+			}
 			return $response->withRedirect($this->router->pathFor('auth.signup'));
 		}
 
+		
+		//creation de l'utilisateur en base de donnees :
 		$user = User::create([
 			'email' => $request->getParam('email'),
 			'password' => password_hash($request->getParam('password'),PASSWORD_DEFAULT),
+			'telnumber' => str_replace(' ','',$request->getParam('telnumber')),
+			'name' => $request->getParam('name'),
+			'surname' => $request->getParam('surname')
 		]);
 		
 		
@@ -73,17 +99,17 @@ class AuthController extends Controller
 			'htmlmsg' => '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 							<html>
 							<head>
-							  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-							  <title>'. $title .'</title>
+								<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+								<title>'. $title .'</title>
 							</head>
 							<body>
 							<div style="width: 640px; font-family: Arial, Helvetica, sans-serif; font-size: 11px;">
-							  <h1>Editions de France</h1>
-							  <p>Bonjour votre compte a été créé, nous vous rappelons vos identifiants : </p>
-							  <p><span style="width: 200px; display: inline-block;">Nom d\'utilisateur: </span><b>'. $user->email .'</b> </p>
-							  <p><span style="width: 200px; display: inline-block;">Fin de votre mot de passe: </span><b>************'. $lastcharspass .'</b> </p>
-							  <br/>
-							  <p>À très vite.</p>
+								<h1>Editions de France</h1>
+								<p>Bonjour votre compte a été créé, nous vous rappelons vos identifiants : </p>
+								<p><span style="width: 200px; display: inline-block;">Nom d\'utilisateur: </span><b>'. $user->email .'</b> </p>
+								<p><span style="width: 200px; display: inline-block;">Fin de votre mot de passe: </span><b>************'. $lastcharspass .'</b> </p>
+								<br/>
+								<p>À très vite.</p>
 							</div>
 							</body>
 							</html>'
@@ -99,7 +125,7 @@ class AuthController extends Controller
 		///////
 		
 		
-		$this->flash->addMessage('info','Vous êtes maintenant connecté');
+		$this->flash->addMessage('info','Vous êtes maintenant connecté.');
 
 		$this->auth->attempt($user->email,$request->getParam('password'));
 		

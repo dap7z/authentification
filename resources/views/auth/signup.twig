@@ -4,61 +4,74 @@
     <div class="row">
     	<div class="col-md-6 col-md-offset-3">
     		<div class="panel panel-default">
-    			<div class="panel-heading">S'enregistrer</div>
+    			<div class="panel-heading">Formulaire d'enregistrement</div>
     			<div class="panel-body">
     				<form action="{{ path_for('auth.signup') }}" method="post">
 
-					    <div class="form-group{{ errors.email ? ' has-error' : '' }}">
+					    <div class="form-group has-feedback {{ errors.email ? ' has-error' : '' }}">
     						<label for="email" class="control-label">Adresse email</label>
-    						<input type="email" name="email" id="email" placeholder="" class="form-control" value="{{ old.email }}">
+    						<input type="text" name="email" id="email" placeholder="" class="form-control" value="{{ old.email }}" />
+							<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                             {% if errors.email %}
                             <span class="hel-block">{{ errors.email | first }}</span>
                             {% endif %}
+							<span class="clear"></span>
     					</div>
 						
 						<div>
-							<div class="form-group{{ errors.password ? ' has-error' : '' }}" style="float:left; width:48%">
+							<div class="form-group has-feedback {{ errors.password ? ' has-error' : '' }}" style="float:left; width:48%">
 								<label for="password">Mot de passe</label>
-								<input type="password" name="password" id="password" class="form-control">
+								<input type="password" name="password" id="password" class="form-control" />
+								<span class="glyphicon glyphicon-asterisk form-control-feedback"></span>
 								{% if errors.password %}
 								<span class="hel-block">{{ errors.password | first }}</span>
 								{% endif %}
 							</div>
-							<div class="form-group{{ errors.passwordconfirm ? ' has-error' : '' }}" style="float:right; width:48%">
-								<label for="passwordconfirm">Confirmation</label>
-								<input type="password" name="passwordconfirm" id="passwordconfirm" class="form-control">
-								{% if errors.passwordconfirm %}
-								<span class="hel-block">{{ errors.passwordconfirm | first }}</span>
+							<div class="form-group has-feedback {{ errors.password_confirm ? ' has-error' : '' }}" style="float:right; width:48%">
+								<label for="password_confirm">Confirmation</label>
+								<input type="password" name="password_confirm" id="password_confirm" class="form-control" />
+								<span class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+								{% if errors.password_confirm %}
+								<span class="hel-block">{{ errors.password_confirm | first }}</span>
 								{% endif %}
 							</div>
+							<span class="clear"></span>
 						</div>
-
-						<div class="form-group{{ errors.telnumber ? ' has-error' : '' }}">
-    						<label for="telnumber">Numéro de téléphone</label>
-    						<input type="tel" name="name" id="telnumber" class="form-control" data-mask="telfr" value="{{ old.telnumber }}">
-                            {% if errors.telnumber %}
-                            <span class="hel-block">{{ errors.telnumber | first }}</span>
-                            {% endif %}
-    					</div>
+						
 						
 						<div>
-							<div class="form-group{{ errors.name ? ' has-error' : '' }}" style="float:left; width:48%">
+							<div class="form-group has-feedback {{ errors.name ? ' has-error' : '' }}" style="float:left; width:48%">
 								<label for="name">Nom</label>
-								<input type="text" name="name" id="name" class="form-control" value="{{ old.name }}" >
+								<input type="text" name="name" id="name" class="form-control" value="{{ old.name }}" />
+								<span class="glyphicon glyphicon-user form-control-feedback"></span>
 								{% if errors.name %}
 								<span class="hel-block">{{ errors.name | first }}</span>
 								{% endif %}
 							</div>
-							<div class="form-group{{ errors.name ? ' has-error' : '' }}" style="float:right; width:48%">
+							<div class="form-group has-feedback {{ errors.name ? ' has-error' : '' }}" style="float:right; width:48%">
 								<label for="surname">Prénom</label>
-								<input type="text" name="name" id="surname" class="form-control" value="{{ old.surname }}" >
+								<input type="text" name="surname" id="surname" class="form-control" value="{{ old.surname }}" />
+								<span class="glyphicon glyphicon-user form-control-feedback"></span>
 								{% if errors.surname %}
 								<span class="hel-block">{{ errors.surname | first }}</span>
 								{% endif %}
 							</div>
+							<span class="clear"></span>
 						</div>
 						
-						<button type="submit" class="btn btn-default" style="width:100%; margin-top:20px;">Créer le compte</button>
+						<div class="form-group has-feedback {{ errors.telnumber ? ' has-error' : '' }}">
+    						<label for="telnumber">Numéro de téléphone</label>
+    						<input type="tel" name="telnumber" id="telnumber" class="form-control mask-telfr" value="{{ old.telnumber }}" />
+							<span class="glyphicon glyphicon-earphone form-control-feedback"></span>
+                            {% if errors.telnumber %}
+                            <span class="hel-block">{{ errors.telnumber | first }}</span>
+                            {% endif %}
+							<span class="clear"></span>
+    					</div>
+						
+						<div style="padding-top:10px;">
+							<button type="submit" class="btn btn-primary btn-lg" style="width:100%; margin-top:20px;">Valider</button>
+						</div>
 
                         {{ csrf.field | raw }}
     				</form>

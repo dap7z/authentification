@@ -1,0 +1,312 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+	<div class="row">
+		<div class="">
+			<div class="panel panel-default">
+				<div class="panel-heading">Liste des utilisateurs</div>
+				<div class="panel-body" style="padding:0;">
+					<form id="FormUsers" action="{{ path_for('users.postList') }}" method="post">
+						
+						<div><button type="button" id="BtnSave" type="submit" class="btn btn-primary" style="width:100%; display:none;">Sauvegarder les modifications</button></div>
+						<div id="users-grid" data-ax5grid="users-grid" data-ax5grid-config="{}" style="height: 600px; width: 100%;"></div>
+						<div style="padding: 10px;">
+						    <button type="button" class="btn btn-default" data-grid-control="row-add">Ajouter une ligne</button>
+							<button type="button" class="btn btn-default" data-grid-control="row-remove">Supprimer les lignes selectionnées</button>
+							<button type="button" class="btn btn-default" data-grid-control="excel-export" style="float:right;">Export Excel</button>
+						</div>
+						
+						{{ csrf.field | raw }}
+					</form>
+				</div>
+				<script>
+					$(document.body).ready(function () {
+						
+						$("#BtnSave").click(function(){
+							
+							//RECUPERE TOUT ?
+							console.log("usersGrid.getList");
+							console.log(usersGrid.getList());
+							
+							/*
+							var d = {};
+							d['modified'] = usersGrid.getList("modified");
+							d['deleted'] = usersGrid.getList("deleted");
+							d['added'] = usersGrid.getList("added");
+							*/
+							
+							var d = usersGrid.getList()
+							
+							var csrf_name = $(document).find("input[name='csrf_name']").val();
+							var csrf_value = $(document).find("input[name='csrf_value']").val();
+							console.log("csrf_name: "+ csrf_name);
+							console.log("csrf_value: "+ csrf_value);
+							
+							//ajout champs csfr (protection formulaire)
+							d['csrf_name'] = csrf_name;
+							d['csrf_value'] = csrf_value;
+							
+							$.ajax({
+								url : '{{ path_for('users.postList') }}',
+								type : 'POST',
+								data : d,
+								/* dataType : 'json', */
+								success : function(response, statut){
+									console.log("retour ajax");
+									console.log(response);
+									
+									
+									//refresh page users.getList
+									//window.location.reload(true);			//A REACTIVER QUAND TOUT OK
+								}
+							});
+							
+						});
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						/* TODO: si on en utilise ailleur, creer un fichier js pour gerer les ax5grid (boutons et desactivation colonnes qui ne sont pas implemente de base) */
+						
+						//creation objet grille
+						var usersGrid = new ax5.ui.grid({
+							target: $('[data-ax5grid="users-grid"]'),
+							showLineNumber: true,
+							lineNumberColumnWidth: 30,
+							sortable: true,
+							multiSort: false,
+							showRowSelector: true,
+							rowSelectorColumnWidth: 27,
+							columns: [
+								{key: "email", label: "Email", align: "left", editor: {type: "text", disabled: UsersGridCheckEvent}},
+								/* {key: "changepassword", label: "Mot de passe", align: "center", editor: {type: "text", disabled: UsersGridCheckEvent}}, */
+								{key: "name", label: "Nom", align: "left", editor: {type: "text", disabled: UsersGridCheckEvent}},
+								{key: "surname", label: "Prenom", align: "left", editor: {type: "text", disabled: UsersGridCheckEvent}},
+								{key: "telnumber", label: "Numéro de téléphone", editor: {type: "number", disabled: UsersGridCheckEvent}},
+								{key: "is_admin", label: "Administrateur", editor: {
+									type: "select", 
+										config: {
+											columnKeys: {optionValue: "V", optionText: "T"},
+											options: [{V: "1", T: "Oui"},{V: "0", T: "Non"}]
+										}
+									},
+									disabled: UsersGridCheckEvent
+								},
+								{key: "created_at", label: "Date de création", align: "center", editor: {type: "text", disabled: UsersGridCheckEvent}},
+								{key: "updated_at", label: "Dernière modification", align: "center", editor: {type: "text", disabled: UsersGridCheckEvent}}
+								/* {key: "removeuser", label: "Supprimer l'utilisateur", align: "center", editor: {type: "text", disabled: UsersGridCheckEvent}}, */
+								/* {key: "iduser", label: "", align: "right", editor: {type: "text", disabled: UsersGridCheckEvent}} */
+							]
+						});
+						//les colonnes changepassword, removeuser, created_at, updated_at ne sont pas éditables (pour les autres: text,number,money,date)
+						//20161218 attention ax5.ui.grid.editor.disabled attend une fonction, on peut pas juste lui passer true... exemple: {type: "text", disabled: function(){return true;} }
+						
+						
+						//reglage hauteur de la grille
+						var height = 600;	//minimum
+						/*	//DESACTIVE: revoir fonction getAvailableHeight + on.window.resize
+							var newHeight = getAvailableHeight();
+							if(newHeight > height){
+								height = newHeight;
+							}
+							console.log("verif usersGrid setHeight: " + height);
+						*/
+						usersGrid.setHeight(height);
+						
+						
+						//chargement data 
+						UsersGridLoad(usersGrid);
+						
+						
+						//event panneau des boutons en bas :
+						$('[data-grid-control]').click(function () {
+						
+							switch (this.getAttribute("data-grid-control")) {
+								case "row-add":
+									//usersGrid.addRow([]);	//fail?
+									d = {};
+									d['email'] = '';
+									d['name'] = '';
+									d['surname'] = '';
+									d['telnumber'] = '';
+									d['is_admin'] = '';
+									d['created_at'] = '';
+									d['updated_at'] = '';
+									d['id'] = 'new';
+									UsersGridAddRow(usersGrid, d);	//ok
+									UsersGridTriggerChange();
+								break;
+								case "row-remove":
+									usersGrid.deleteRow("selected");
+									UsersGridTriggerChange();
+								break;
+								case "excel-export":
+									var txtdate = ax5.util.date(new Date(), {'return':'yyyyMMdd'});
+									usersGrid.exportExcel("liste-utilisateurs-"+ txtdate +".xls");
+							}
+						});
+						
+					});
+					
+					
+					function UsersGridLoad(grid){
+						dataIndex = [];
+						
+						var usersData = {{ usersData|raw }};
+						var btnChangePassword = '';
+						var btnRemoveUser = '';
+						var iduser = '';
+						//on recupere un div qui wrap l'element table utilise par ax5grid :
+						var internalTableContainer = $("#users-grid").find("[data-ax5grid-panel='body']").first();
+						//console.log(internalTableContainer.html());
+						
+						$.each(usersData, function(){
+							UsersGridAddRow(grid, this);
+						});
+						//grid.clearSelect();
+						
+						//Ajoute classe css sur cellules desactives
+						//doit etre fait apres ajouter toutes les lignes de ax-grid 
+						//...et est re-initialisé au premier trie/ajout de ligne/modification largeur col
+						internalTableContainer.find("td").each(function(){ 
+							var indexCol = parseInt( $(this).attr("data-ax5grid-column-colindex") );
+							var paramExcludeBtn = true;
+							var disableCell = UsersGridCheckDisable(indexCol, "index", paramExcludeBtn);
+							//console.log("this.indexCol: "+ indexCol +" disableCell:"+ disableCell);
+							if(disableCell){
+								$(this).addClass("celldisabled");
+							}
+						});
+						
+						return dataIndex;
+					}
+					
+					function UsersGridTriggerChange(){
+						$("#BtnSave").show();
+					}
+					
+					function UsersGridAddRow(grid, d){
+						grid.addRow({
+							email: d.email,
+							changepassword: '***********',
+							name: d.name, 
+							surname: d.surname,
+							telnumber: d.telnumber,
+							is_admin: d.is_admin,
+							created_at: d.created_at,
+							updated_at: d.updated_at,
+							removeuser: '[ X ]',
+							iduser: d.id
+						});
+						//ax5ui grid ne propose pas d'option pour cacher une colonne
+						//on cachera donc idUser en CSS avec parent : #users-grid
+						//NO UsersGridTriggerChange (Load...)
+					}
+					
+					
+					function UsersGrid_RefColsDisabled(){
+						/******* ATTENTION DOIT ETRE A JOUR : PENSER A MAINTENIR CETTE TABLE DE RELATION, ou voir ax5ui ************/
+						//ORG: TEST BOUTONS DANS COLONNES
+						var DISABLED_COLS = {
+							"changepassword" : 1,
+							"created_at" : 6,
+							"updated_at" : 7,
+							"removeuser" : 8,
+							"iduser" : 9
+						};
+						//MINIMAL
+						var DISABLED_COLS = {
+							"created_at" : 5,
+							"updated_at" : 6,
+						};
+						return DISABLED_COLS;
+						//utilise dans: UsersGridCheckEvent, UsersGridCheckDisable
+					}
+					function UsersGrid_RefColsBtn(){
+						var BUTTON_COLS = {
+							"changepassword" : 1,
+							"removeuser" : 8
+						};
+						return BUTTON_COLS;
+					}
+					
+					
+					//Declenche lors d'un double clic sur une case (via ax5.ui.grid.editor.disabled)
+					//si on renvoi vrai, autorise la saisie sinon la case ne s'ouvre pas en ecriture
+					function UsersGridCheckEvent(){
+						var key = this.key;
+						var clickOnDisable = UsersGridCheckDisable(key, "key");
+						//console.log("this.key: "+ key +" clickOnDisable: "+ clickOnDisable);
+						
+						var refColsBtn = UsersGrid_RefColsBtn();
+						var checkbtnindex = [];
+						$.each(refColsBtn, function(k,v){
+							checkbtnindex.push(v);
+						});
+						if(-1 != $.inArray(key, checkbtnindex)){
+							console.log("lance event btn");
+							UsersGridEventBtn(key);
+							clickOnDisable = true;
+						}
+						
+						UsersGridTriggerChange();
+						return clickOnDisable;
+					}
+					
+					function UsersGridEventBtn(key){
+						console.log("============UsersGridEventBtn========="+key);
+						ax5Grid.removeRow(1);
+					}
+					
+					function UsersGridCheckDisable(input, mode, excludebtn){
+						var refColsDisabled = UsersGrid_RefColsDisabled();
+						var refColsColsBtn = UsersGrid_RefColsBtn();
+						
+						if(mode=='key'){
+							input = refColsDisabled[input];
+							mode = 'index';
+						}
+						//console.log('UsersGridCheckDisable => index:'+ input);
+						
+						var checkindex = [];
+						$.each(refColsDisabled, function(k,v){
+							checkindex.push(v); //v et pas this
+						});
+						//boutons ne doivent pas declenche ouverture de la cellule ...mais ne doivent pas etre grise non plus :)
+						if(typeof(excludebtn)=='undefined' || excludebtn==false){
+							console.log("exclude btn:"+ checkindex);
+							$.each(refColsColsBtn, function(k,v){
+								checkindex.push(v);
+							});
+						}
+						
+						var shouldBeDisabled = true;
+						if(-1 == $.inArray(input, checkindex)){
+							shouldBeDisabled = false;
+						}
+						//console.log('UsersGridCheckDisable => shouldBeDisabled:'+ shouldBeDisabled);
+						
+						return shouldBeDisabled;
+					}
+					
+					
+					
+					
+					
+					
+					
+					
+					
+				</script>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -20,17 +20,19 @@ class Auth
 	
 	public function checkadmin()
 	{
-		$isAdmin = 0;
+		$isAdmin = false;
 		if($this->check()){
 			$user = User::where('id',$_SESSION['user'])->first();
-			$isAdmin = $user->is_admin;
+			$isAdmin = ($user->is_admin == '1');
 		}
 		return $isAdmin;
 	}
 	
 	public function attempt($email,$password)
 	{
-		$user = User::where('email',$email)->first();
+		$userModel = new User;
+		$user = $userModel->makeVisible('password')->where('email',$email)->first();
+		unset($userModel);
 
 		if (!$user) {
 			return false;

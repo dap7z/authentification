@@ -13,3 +13,15 @@ body {
 	text-align: center;
     font-size: 96px;
 }
+
+
+.clear {
+	display:block;
+	clear: both;
+}
+
+
+/* custom ax5grid */
+.celldisabled{
+	background-color: #e0e0eb;
+}

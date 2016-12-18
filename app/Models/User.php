@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
-* 
+* Classe représentant un utilisateur en bdd
 */
 class User extends Model
 {
@@ -20,6 +20,9 @@ class User extends Model
 		'name',
 		'surname',
 	];
+	
+	//on defini les champs qui ne doivent pas être retourne par defaut dans les methodes get/all
+	protected $hidden = ['password'];
 
 	public function setPassword($password)
 	{

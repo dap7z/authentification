@@ -16,7 +16,7 @@ class PasswordController extends Controller
 
 	public function postChangePassword($request,$response)
 	{
-		$validation = $this->validator->validate($request,[
+		$validation = $this->Validator->validate($request,[
 			'password_old' => v::noWhitespace()->notEmpty()->matchesPassword($this->auth->user()->password),
 			'password' => v::noWhitespace()->notEmpty(),
 		]);
