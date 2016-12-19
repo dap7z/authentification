@@ -14,8 +14,7 @@ $container = $app->getContainer();
 
 
 
-$container['debug'] =  true;
-if($container['debug'])
+if($container['debug'] == true)
 {
 	$provider = new Kitchenu\Debugbar\ServiceProvider();
 	$provider->register($app);

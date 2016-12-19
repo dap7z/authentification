@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 14 Décembre 2016 à 20:22
+-- Généré le :  Lun 19 Décembre 2016 à 23:23
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -35,7 +35,7 @@ CREATE TABLE `users` (
   `surname` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `is_admin` int(11) NOT NULL DEFAULT '0'
+  `is_admin` enum('oui','non') NOT NULL DEFAULT 'non'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -43,8 +43,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `telnumber`, `name`, `surname`, `created_at`, `updated_at`, `is_admin`) VALUES
-(1, 'damien.pointier@gmail.com', '$2y$10$bq8AHTOPvDuSxII8gxIOYunJ6RG7wWVm1gZCL81MLLSWqNnonGgBS', '', '', '', '2016-12-13 23:00:00', '2016-12-13 23:00:00', 1),
-(2, 'admin@demo.fr', '$2y$10$XPheSHo9ynqKOW.htZ/n/uU.0Ko3QZgXUGx1UZQfUDA2HLADDQXC6', '', '', '', '2016-12-13 23:00:00', '2016-12-13 23:00:00', 1);
+(1, 'damien.pointier@gmail.com', '$2y$10$bq8AHTOPvDuSxII8gxIOYunJ6RG7wWVm1gZCL81MLLSWqNnonGgBS', '0000000000', 'Pointier', 'Damien', '2016-12-13 23:00:00', '2016-12-19 21:09:53', 'oui'),
+(2, 'admin@demo.fr', '$2y$10$XPheSHo9ynqKOW.htZ/n/uU.0Ko3QZgXUGx1UZQfUDA2HLADDQXC6', '0234564124', 'Admin', 'Demo', '2016-12-13 23:00:00', '2016-12-19 12:31:12', 'oui');
 
 --
 -- Index pour les tables exportées
@@ -64,7 +64,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

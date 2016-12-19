@@ -23,7 +23,7 @@ class Auth
 		$isAdmin = false;
 		if($this->check()){
 			$user = User::where('id',$_SESSION['user'])->first();
-			$isAdmin = ($user->is_admin == '1');
+			$isAdmin = ($user->is_admin == '1') || ($user->is_admin == 'oui');
 		}
 		return $isAdmin;
 	}

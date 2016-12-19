@@ -20,8 +20,13 @@ body {
 	clear: both;
 }
 
+.btn-save-hidden{
+	visibility:hidden;
+}
+
+
 
 /* custom ax5grid */
-.celldisabled{
+.coldisabled{
 	background-color: #e0e0eb;
 }

@@ -19,7 +19,7 @@ $(document).ready(function() {
 	
 	//=======================JS==SPECIFIQUE===============================
 	//dispatch actions (selon vue affichee, connectee ou non, ...)
-	console.log(jsdata); //defini grace a recources/view/templates/app.twig 
+	//console.log(jsdata); //defini grace a recources/view/templates/app.twig 
 	switch(jsdata['view']){
 		
 		case "/users/list" :

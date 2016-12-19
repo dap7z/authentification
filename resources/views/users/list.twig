@@ -8,53 +8,62 @@
 				<div class="panel-body" style="padding:0;">
 					<form id="FormUsers" action="{{ path_for('users.postList') }}" method="post">
 						
-						<div><button type="button" id="BtnSave" type="submit" class="btn btn-primary" style="width:100%; display:none;">Sauvegarder les modifications</button></div>
+						<div><button type="button" id="BtnSave" type="submit" class="btn btn-primary btn-save-hidden" style="width:100%;">Sauvegarder les modifications</button></div>
 						<div id="users-grid" data-ax5grid="users-grid" data-ax5grid-config="{}" style="height: 600px; width: 100%;"></div>
 						<div style="padding: 10px;">
-						    <button type="button" class="btn btn-default" data-grid-control="row-add">Ajouter une ligne</button>
-							<button type="button" class="btn btn-default" data-grid-control="row-remove">Supprimer les lignes selectionnées</button>
+						    <button type="button" class="btn btn-default" data-grid-control="row-add">Ajouter un utilisateur</button>
+							<button type="button" class="btn btn-default" data-grid-control="row-remove">Supprimer les utilisateurs selectionnés</button>
 							<button type="button" class="btn btn-default" data-grid-control="excel-export" style="float:right;">Export Excel</button>
 						</div>
 						
+						<div id="FormUsersData" class="form-group" style="display:none">
+							<!-- hiddens inputs -->
+							<input name="formjson" type="hidden" value="" />
+						<div>
+						
 						{{ csrf.field | raw }}
+						
 					</form>
 				</div>
 				<script>
 					$(document.body).ready(function () {
 						
+						
 						$("#BtnSave").click(function(){
+							//Cache bouton de validation pour eviter double click
+							$("#BtnSave").addClass("btn-save-hidden");
 							
-							//console.log(usersGrid.getList());	//vide...
-							
-							//recuperation donnes liste users :
+							//Recuperation donnes utiles liste users :
 							var d = {};
 							d['modified'] = usersGrid.getList("modified");
 							d['deleted'] = usersGrid.getList("deleted");
-							d['added'] = usersGrid.getList("added");
+							//Les lignes nouvellement crees sont enregistres dans le tableau modified avec l'id 'new'
+							//Attention si on fait getList sans parametre ou sur une liste qui n'existe pas, on recupere tout
 							
-							//ajout champs csfr (protection formulaire)
-							var csrf_name = $(document).find("input[name='csrf_name']").val();
-							var csrf_value = $(document).find("input[name='csrf_value']").val();
-							//console.log("csrf_name: "+ csrf_name +"csrf_value: "+ csrf_value);
-							d['csrf_name'] = csrf_name;
-							d['csrf_value'] = csrf_value;
+							//Renseigne formulaire
+							var formjson = $("#FormUsers").find("input[name='formjson']");
+							var stringjson = JSON.stringify(d);
+							formjson.val(stringjson);
+							//console.log(formjson.val());
 							
-							$.ajax({
-								url : '{{ path_for('users.postList') }}',
-								type : 'POST',
-								data : d,
-								/* dataType : 'json', */
-								success : function(response, statut){
-									console.log("retour ajax");
-									console.log(response);
-									
-									
-									//refresh page users.getList
-									window.location.reload(true);	
-									//(A DESACTIVER SI ON SOUHAITE DEBUG)
-								}
-							});
+							//Envoi formulaire
+							$("#FormUsers").submit();
 							
+							/*
+								//ORG DEV: ajax query, probleme pour bien faire, il faudrait ajouter une route json (todo: interface json)
+								//la reponse contenant les eventuels msg erreurs est en html, en plus on est obliger de faire un refresh
+								d['csrf_name'] = $(document).find("input[name='csrf_name']").val();
+								d['csrf_value'] = $(document).find("input[name='csrf_value']").val();	//champs csfr protection formulaire
+								$.ajax({
+									url : '{{ path_for('users.postList') }}',
+									type : 'POST',
+									data : d,
+									success : function(response, statut){
+										console.log(response);
+										window.location.reload(true);
+									}
+								});
+							*/
 						});
 						
 						
@@ -62,15 +71,9 @@
 						
 						
 						
+						/* TODO: si on en utilise ailleur, creer un fichier js pour gerer les ax5grid (boutons et couleur sur cellule desactive qui ne sont pas implemente de base) */
 						
-						
-						
-						
-						
-						
-						/* TODO: si on en utilise ailleur, creer un fichier js pour gerer les ax5grid (boutons et desactivation colonnes qui ne sont pas implemente de base) */
-						
-						//creation objet grille
+						//creation objet grille ax5ui
 						var usersGrid = new ax5.ui.grid({
 							target: $('[data-ax5grid="users-grid"]'),
 							showLineNumber: true,
@@ -80,22 +83,22 @@
 							showRowSelector: true,
 							rowSelectorColumnWidth: 27,
 							columns: [
-								{key: "email", label: "Email", align: "left", editor: {type: "text", disabled: UsersGridCheckEvent}},
+								{key: "email", label: "Email", align: "left", width: 250, editor: {type: "text", disabled: UsersGridCheckEvent}},
 								/* {key: "changepassword", label: "Mot de passe", align: "center", editor: {type: "text", disabled: UsersGridCheckEvent}}, */
-								{key: "name", label: "Nom", align: "left", editor: {type: "text", disabled: UsersGridCheckEvent}},
-								{key: "surname", label: "Prenom", align: "left", editor: {type: "text", disabled: UsersGridCheckEvent}},
-								{key: "telnumber", label: "Numéro de téléphone", editor: {type: "number", disabled: UsersGridCheckEvent}},
-								{key: "is_admin", label: "Administrateur", editor: {
+								{key: "name", label: "Nom", align: "left", width: 150, editor: {type: "text", disabled: UsersGridCheckEvent}},
+								{key: "surname", label: "Prenom", align: "left", width: 150, editor: {type: "text", disabled: UsersGridCheckEvent}},
+								{key: "telnumber", label: "Téléphone", editor: {type: "number", disabled: UsersGridCheckEvent}},
+								{key: "is_admin", label: "Admin", align: "center", width: 66, editor: {
 									type: "select", 
 										config: {
 											columnKeys: {optionValue: "V", optionText: "T"},
-											options: [{V: "1", T: "Oui"},{V: "0", T: "Non"}]
+											options: [{V: "oui", T: "Oui"},{V: "non", T: "Non"}]
 										}
 									},
 									disabled: UsersGridCheckEvent
 								},
-								{key: "created_at", label: "Date de création", align: "center", editor: {type: "text", disabled: UsersGridCheckEvent}},
-								{key: "updated_at", label: "Dernière modification", align: "center", editor: {type: "text", disabled: UsersGridCheckEvent}}
+								{key: "created_at", label: "Date de création", align: "center", width: 150, styleClass: "coldisabled", editor: {type: "text", disabled: UsersGridCheckEvent}},
+								{key: "updated_at", label: "Dernière modification", align: "center", width: 150, styleClass: "coldisabled", editor: {type: "text", disabled: UsersGridCheckEvent}}
 								/* {key: "removeuser", label: "Supprimer l'utilisateur", align: "center", editor: {type: "text", disabled: UsersGridCheckEvent}}, */
 								/* {key: "iduser", label: "", align: "right", editor: {type: "text", disabled: UsersGridCheckEvent}} */
 							]
@@ -116,31 +119,35 @@
 						usersGrid.setHeight(height);
 						
 						
-						//chargement data 
+						//Chargement data 
 						UsersGridLoad(usersGrid);
 						
 						
-						//event panneau des boutons en bas :
+						//Events panneau des boutons en bas :
 						$('[data-grid-control]').click(function () {
-						
+							var nbElemSelected = usersGrid.getList("selected");
+							nbElemSelected = nbElemSelected.length;
 							switch (this.getAttribute("data-grid-control")) {
 								case "row-add":
-									//usersGrid.addRow([]);	//fail?
 									d = {};
-									d['email'] = '';
-									d['name'] = '';
-									d['surname'] = '';
-									d['telnumber'] = '';
-									d['is_admin'] = '';
-									d['created_at'] = '';
-									d['updated_at'] = '';
-									d['id'] = 'new';
-									UsersGridAddRow(usersGrid, d);	//ok
+									d = UsersGridFormatRow(d);
+									usersGrid.addRow(d);
 									UsersGridTriggerChange();
 								break;
 								case "row-remove":
-									usersGrid.deleteRow("selected");
-									UsersGridTriggerChange();
+									if(nbElemSelected>0){
+										usersGrid.deleteRow("selected");
+										UsersGridTriggerChange();
+									}else{
+										var toast2 = new ax5.ui.toast();
+										toast2.setConfig({
+											containerPosition: "top-right"
+										});//todo: 1seul obj toast app.twig
+										toast2.push({
+											theme: 'warning',
+											msg: 'Vous devez cocher des lignes'
+										});
+									}
 								break;
 								case "excel-export":
 									var txtdate = ax5.util.date(new Date(), {'return':'yyyyMMdd'});
@@ -151,58 +158,59 @@
 					});
 					
 					
+					
+					
+					
+					/***********************
+						DEBUT FONCTIONS
+					***********************/
+					
+					
 					function UsersGridLoad(grid){
-						dataIndex = [];
-						
+						//====DATA====
 						var usersData = {{ usersData|raw }};
-						var btnChangePassword = '';
-						var btnRemoveUser = '';
-						var iduser = '';
-						//on recupere un div qui wrap l'element table utilise par ax5grid :
-						var internalTableContainer = $("#users-grid").find("[data-ax5grid-panel='body']").first();
-						//console.log(internalTableContainer.html());
-						
+						//Attention on est obliger de charger toutes les lignes en meme temps
+						//Car ligne consideré comme modifié si utilisation de grid.addRow(d)
+						var UsersDataFormated = [];
 						$.each(usersData, function(){
-							UsersGridAddRow(grid, this);
+							var f = UsersGridFormatRow(this);
+							UsersDataFormated.push(f);
 						});
-						//grid.clearSelect();
-						
-						//Ajoute classe css sur cellules desactives
-						//doit etre fait apres ajouter toutes les lignes de ax-grid 
-						//...et est re-initialisé au premier trie/ajout de ligne/modification largeur col
-						internalTableContainer.find("td").each(function(){ 
-							var indexCol = parseInt( $(this).attr("data-ax5grid-column-colindex") );
-							var paramExcludeBtn = true;
-							var disableCell = UsersGridCheckDisable(indexCol, "index", paramExcludeBtn);
-							//console.log("this.indexCol: "+ indexCol +" disableCell:"+ disableCell);
-							if(disableCell){
-								$(this).addClass("celldisabled");
-							}
-						});
-						
-						return dataIndex;
+						grid.setData(UsersDataFormated);
+						//====STYLE====
+						//on doit passer par les parametre d'initialisation de l'objet grid car celui ci est constament redessine
 					}
 					
 					function UsersGridTriggerChange(){
-						$("#BtnSave").show();
+						$("#BtnSave").removeClass("btn-save-hidden");
 					}
 					
-					function UsersGridAddRow(grid, d){
-						grid.addRow({
-							email: d.email,
-							changepassword: '***********',
-							name: d.name, 
-							surname: d.surname,
-							telnumber: d.telnumber,
-							is_admin: d.is_admin,
-							created_at: d.created_at,
-							updated_at: d.updated_at,
-							removeuser: '[ X ]',
-							iduser: d.id
-						});
-						//ax5ui grid ne propose pas d'option pour cacher une colonne
-						//on cachera donc idUser en CSS avec parent : #users-grid
-						//NO UsersGridTriggerChange (Load...)
+					function UsersGridFormatRow(bddrow){
+						//fonction qui formate les objet json en provenance de la bdd pour affichage dans ax5grid
+						var internFonc = function(i){
+							//fonction interne qui retourne valeur si definie sinon retourne chaine vide
+							if(typeof(i)=='undefined') return '';
+							else return i;
+						}
+						var gridrow = {};
+						gridrow['email'] = internFonc(bddrow.email);
+						gridrow['changepassword'] = '***********';
+						gridrow['name'] = internFonc(bddrow.name),
+						gridrow['surname'] = internFonc(bddrow.surname);
+						gridrow['telnumber'] = internFonc(bddrow.telnumber);
+						gridrow['is_admin'] = internFonc(bddrow.is_admin);
+						gridrow['created_at'] = internFonc(bddrow.created_at);
+						gridrow['updated_at'] = internFonc(bddrow.updated_at);
+						gridrow['removeuser'] = '[ X ]';
+						gridrow['iduser'] = internFonc(bddrow.id);
+						if(gridrow['iduser'] == ''){
+							gridrow['iduser'] = 'new';
+						}
+						gridrow['created_at'] = ax5.util.date(gridrow['created_at'], {'return':'dd/MM/yyyy  hh:mm'});
+						gridrow['updated_at'] = ax5.util.date(gridrow['updated_at'], {'return':'dd/MM/yyyy  hh:mm'});
+						return gridrow;
+						//les donnes presentes ici mais non affiche dans la grille ax5ui sont tout de meme enregistres par ax5ui-grid
+						//=> aussi bien voir mieux que des colonnes caches
 					}
 					
 					
@@ -233,12 +241,17 @@
 					}
 					
 					
-					//Declenche lors d'un double clic sur une case (via ax5.ui.grid.editor.disabled)
-					//si on renvoi vrai, autorise la saisie sinon la case ne s'ouvre pas en ecriture
+
 					function UsersGridCheckEvent(){
+						//executee lors d'un double clic sur une case (via ax5.ui.grid.editor.disabled)
+						//si on renvoi vrai, autorise la saisie sinon la case ne s'ouvre pas en ecriture
 						var key = this.key;
 						var clickOnDisable = UsersGridCheckDisable(key, "key");
 						//console.log("this.key: "+ key +" clickOnDisable: "+ clickOnDisable);
+						if(clickOnDisable == false){
+							//utilisateur va rentrer dans la case
+							UsersGridTriggerChange();
+						}
 						
 						var refColsBtn = UsersGrid_RefColsBtn();
 						var checkbtnindex = [];
@@ -251,14 +264,16 @@
 							clickOnDisable = true;
 						}
 						
-						UsersGridTriggerChange();
 						return clickOnDisable;
 					}
 					
+					
 					function UsersGridEventBtn(key){
+						//TEST CELLULE COMME UN BOUTON 
 						console.log("============UsersGridEventBtn========="+key);
 						ax5Grid.removeRow(1);
 					}
+					
 					
 					function UsersGridCheckDisable(input, mode, excludebtn){
 						var refColsDisabled = UsersGrid_RefColsDisabled();
@@ -274,7 +289,7 @@
 						$.each(refColsDisabled, function(k,v){
 							checkindex.push(v); //v et pas this
 						});
-						//boutons ne doivent pas declenche ouverture de la cellule ...mais ne doivent pas etre grise non plus :)
+						//boutons ne doivent pas declenche ouverture de la cellule
 						if(typeof(excludebtn)=='undefined' || excludebtn==false){
 							console.log("exclude btn:"+ checkindex);
 							$.each(refColsColsBtn, function(k,v){
@@ -290,10 +305,6 @@
 						
 						return shouldBeDisabled;
 					}
-					
-					
-					
-					
 					
 					
 					
