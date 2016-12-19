@@ -24,25 +24,18 @@
 						
 						$("#BtnSave").click(function(){
 							
-							//RECUPERE TOUT ?
-							console.log("usersGrid.getList");
-							console.log(usersGrid.getList());
+							//console.log(usersGrid.getList());	//vide...
 							
-							/*
+							//recuperation donnes liste users :
 							var d = {};
 							d['modified'] = usersGrid.getList("modified");
 							d['deleted'] = usersGrid.getList("deleted");
 							d['added'] = usersGrid.getList("added");
-							*/
-							
-							var d = usersGrid.getList()
-							
-							var csrf_name = $(document).find("input[name='csrf_name']").val();
-							var csrf_value = $(document).find("input[name='csrf_value']").val();
-							console.log("csrf_name: "+ csrf_name);
-							console.log("csrf_value: "+ csrf_value);
 							
 							//ajout champs csfr (protection formulaire)
+							var csrf_name = $(document).find("input[name='csrf_name']").val();
+							var csrf_value = $(document).find("input[name='csrf_value']").val();
+							//console.log("csrf_name: "+ csrf_name +"csrf_value: "+ csrf_value);
 							d['csrf_name'] = csrf_name;
 							d['csrf_value'] = csrf_value;
 							
@@ -57,7 +50,8 @@
 									
 									
 									//refresh page users.getList
-									//window.location.reload(true);			//A REACTIVER QUAND TOUT OK
+									window.location.reload(true);	
+									//(A DESACTIVER SI ON SOUHAITE DEBUG)
 								}
 							});
 							

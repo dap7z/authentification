@@ -35,7 +35,7 @@ class AuthController extends Controller
 			$_SESSION['old'] = array();
 			if($this->auth->checkadmin()){
 				//redirection vers la page de gestion des utilisateur
-				return $response->withRedirect($this->router->pathFor('users.getlist'));
+				return $response->withRedirect($this->router->pathFor('users.getList'));
 			}
 		}
 		else
