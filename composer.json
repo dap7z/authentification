@@ -17,7 +17,9 @@
         "slim/csrf": "^0.6.0",
         "slim/flash": "^0.1.0",
 		"kitchenu/slim-debugbar": "1.0",
-        "projek-xyz/slim-monolog": "^0.1.6"
+        "projek-xyz/slim-monolog": "^0.1.6",
+		"samyoul/u2f-php-server": "^1.1.3",
+        "league/plates": "^3.1"
     },
 	"minimum-stability": "stable",
     "autoload": {
